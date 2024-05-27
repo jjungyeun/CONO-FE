@@ -9,7 +9,7 @@
           </router-link>
         </td>
         <td>
-          <router-link to="/search">
+          <router-link to="/search/closest">
             <div style="background-color: #feecff">내 근처<br />노래방</div>
           </router-link>
         </td>

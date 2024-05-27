@@ -67,7 +67,6 @@ export default {
       if (this.searchQuery == '') {
         alert('검색어를 입력해주세요.')
       } else {
-        alert(this.searchQuery)
         this.isSearchSuccess = true
       }
     }
@@ -136,7 +135,7 @@ button {
 
   p {
     margin-left: 1%;
-    color: gray;
+    color: goldenrod;
   }
 }
 
@@ -149,7 +148,7 @@ button {
 
 #add-cono {
   text-align: center;
-  color: goldenrod;
+  color: gray;
   font-size: small;
   cursor: pointer;
   text-decoration: underline;

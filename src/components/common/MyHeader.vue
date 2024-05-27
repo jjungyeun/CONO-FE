@@ -1,9 +1,7 @@
 <template>
   <header>
-    <div class="header-wrapper">
-      <router-link to="/" v-show="$route.path != '/'"
-        ><img class="header-logo" src="../../assets/logo.png"
-      /></router-link>
+    <div class="header-wrapper" v-show="$route.path != '/'">
+      <router-link to="/"><img class="header-logo" src="../../assets/logo.png" /></router-link>
     </div>
   </header>
 </template>
