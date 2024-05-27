@@ -58,6 +58,41 @@ export default {
           id: 5,
           name: '판타스틱 코인노래방 미금역점',
           address: '성남시 분당구'
+        },
+        {
+          id: 1,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 2,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 6,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 7,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 8,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 9,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
+        },
+        {
+          id: 10,
+          name: '판타스틱 코인노래방 미금역점',
+          address: '성남시 분당구'
         }
       ]
     }
@@ -88,10 +123,11 @@ ul {
 }
 
 #search-page {
+  padding-top: 5%;
   padding-left: 3%;
   padding-right: 3%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  padding-bottom: 3%;
+  min-height: 90vh;
 }
 
 table {

@@ -22,7 +22,7 @@
 .home {
   background-color: #ffffe4;
   text-align: center;
-  min-height: 90vh;
+  min-height: 95vh;
   align-content: center;
 }
 

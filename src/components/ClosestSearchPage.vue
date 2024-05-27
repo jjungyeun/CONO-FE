@@ -75,7 +75,8 @@ ul {
 #closest-page {
   padding-left: 3%;
   padding-right: 3%;
-  margin-bottom: 5%;
+  padding-bottom: 3%;
+  min-height: 90vh;
 }
 
 #closest-result {
