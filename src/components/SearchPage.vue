@@ -10,11 +10,20 @@
         </td>
       </tr>
     </table>
-    <ul>
-      <li v-show="isSearchSuccess" v-for="(cono, idx) in conoList" v-bind:key="cono.id">
-        <SearchElement v-bind:cono="cono" v-bind:isLast="idx == conoList.length - 1" />
-      </li>
-    </ul>
+
+    <div id="no-search-result" v-show="isSearchSuccess && conoList.length == 0">
+      <p>"{{ searchQuery }}"에 대한 검색 결과가 없습니다.</p>
+    </div>
+
+    <div id="search-result" v-show="isSearchSuccess && conoList.length > 0">
+      <p>"{{ searchQuery }}"에 대한 검색 결과입니다.</p>
+
+      <ul>
+        <li v-for="(cono, idx) in conoList" v-bind:key="cono.id">
+          <SearchElement v-bind:cono="cono" v-bind:isLast="idx == conoList.length - 1" />
+        </li>
+      </ul>
+    </div>
 
     <div id="add-cono" v-show="isSearchSuccess">
       <p>❕ 찾으시는 노래방이 없나요?</p>
@@ -75,7 +84,7 @@ li {
 }
 
 ul {
-  margin-top: 5%;
+  margin-top: 2%;
   margin-bottom: 5%;
 }
 
@@ -120,6 +129,22 @@ button {
   font-size: small;
   color: gray;
   cursor: pointer;
+}
+
+#search-result {
+  margin-top: 5%;
+
+  p {
+    margin-left: 1%;
+    color: gray;
+  }
+}
+
+#no-search-result {
+  text-align: center;
+  font-size: large;
+  color: gray;
+  margin-bottom: 30px;
 }
 
 #add-cono {
