@@ -1,6 +1,15 @@
 <template>
   <div id="search-page">
-    <input v-model="searchQuery" placeholder="검색어를 입력해주세요." />
+    <table>
+      <tr>
+        <td style="width: 85%">
+          <input v-model="searchQuery" placeholder="검색어를 입력해주세요." autocomplete="off" />
+        </td>
+        <td style="width: 15%">
+          <button @click="search()">검색</button>
+        </td>
+      </tr>
+    </table>
     <ul>
       <li v-for="(cono, idx) in conoList" v-bind:key="cono.id">
         <SearchElement v-bind:cono="cono" v-bind:isLast="idx == conoList.length - 1" />
@@ -38,6 +47,11 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    search() {
+      alert(this.searchQuery)
+    }
   }
 }
 </script>
@@ -58,8 +72,12 @@ ul {
 div {
   padding-left: 3%;
   padding-right: 3%;
-  margin-top: 3%;
+  margin-top: 5%;
   margin-bottom: 5%;
+}
+
+table {
+  width: 100%;
 }
 
 input {
@@ -74,5 +92,21 @@ input {
 input:focus {
   border-color: aqua;
   outline: none;
+}
+
+button {
+  width: 90%;
+  margin-left: 10%;
+  padding: 10px;
+  background-color: lightgray;
+  border-radius: 20px;
+  border: none;
+  font-size: medium;
+  color: gray;
+}
+
+button:hover {
+  background-color: gray;
+  color: black;
 }
 </style>

@@ -24,5 +24,6 @@ header {
   text-align: center;
   height: 50px;
   padding: 0 16px;
+  box-shadow: 0 6px 8px -3px rgba(0, 0, 0, 0.15);
 }
 </style>
