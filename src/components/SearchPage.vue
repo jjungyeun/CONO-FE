@@ -11,10 +11,14 @@
       </tr>
     </table>
     <ul>
-      <li v-for="(cono, idx) in conoList" v-bind:key="cono.id">
+      <li v-show="isSearchSuccess" v-for="(cono, idx) in conoList" v-bind:key="cono.id">
         <SearchElement v-bind:cono="cono" v-bind:isLast="idx == conoList.length - 1" />
       </li>
     </ul>
+
+    <div id="add-cono" v-show="isSearchSuccess">
+      <p>❕ 찾으시는 노래방이 없나요?</p>
+    </div>
   </div>
 </template>
 
@@ -29,6 +33,7 @@ export default {
   data: () => {
     return {
       searchQuery: '',
+      isSearchSuccess: false,
       conoList: [
         {
           id: 3,
@@ -50,7 +55,12 @@ export default {
   },
   methods: {
     search() {
-      alert(this.searchQuery)
+      if (this.searchQuery == '') {
+        alert('검색어를 입력해주세요.')
+      } else {
+        alert(this.searchQuery)
+        this.isSearchSuccess = true
+      }
     }
   }
 }
@@ -65,11 +75,11 @@ li {
 }
 
 ul {
-  margin-top: 3%;
-  margin-bottom: 3%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
-div {
+#search-page {
   padding-left: 3%;
   padding-right: 3%;
   margin-top: 5%;
@@ -77,7 +87,13 @@ div {
 }
 
 table {
+  padding-left: 1%;
+  padding-right: 1%;
   width: 100%;
+}
+
+td {
+  align-content: center;
 }
 
 input {
@@ -101,12 +117,16 @@ button {
   background-color: lightgray;
   border-radius: 20px;
   border: none;
-  font-size: medium;
+  font-size: small;
   color: gray;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: gray;
-  color: black;
+#add-cono {
+  text-align: center;
+  color: goldenrod;
+  font-size: small;
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

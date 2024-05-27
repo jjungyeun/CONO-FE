@@ -17,7 +17,7 @@ export default {
 
 <style scoped>
 .cono-name {
-  font-size: x-large;
+  font-size: large;
 }
 
 .cono-address {
@@ -34,8 +34,8 @@ hr {
 }
 
 div {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 3%;
+  padding-right: 3%;
   margin-top: 10px;
 }
 </style>
