@@ -54,28 +54,28 @@
       <p>업체명*</p>
       <input
         class="text-input"
-        v-model="conoName"
+        v-model="cono.conoName"
         placeholder="업체명을 입력해주세요."
         autocomplete="off"
       />
       <p>주소*</p>
       <input
         class="text-input"
-        v-model="conoAddress"
+        v-model="cono.conoAddress"
         placeholder="주소를 입력해주세요."
         autocomplete="off"
       />
       <p>운영시간*</p>
       <input
         class="text-input"
-        v-model="operatingTime"
+        v-model="cono.operatingTime"
         placeholder="운영시간을 입력해주세요."
         autocomplete="off"
       />
       <p>전화번호</p>
       <input
         class="text-input"
-        v-model="phoneNumber"
+        v-model="cono.phoneNumber"
         placeholder="대표 전화번호를 입력해주세요."
         autocomplete="off"
       />
@@ -84,10 +84,10 @@
     <div v-show="formPage == 2" class="register-form" id="form-2">
       <!-- 가격: 동적 input -->
       <p>가격<button id="fee-add-button" @click="addFee()">요금정보 추가</button></p>
-      <span v-if="feeList.length == 0">요금정보를 추가하기 위해 위 버튼을 눌러주세요.</span>
+      <span v-if="cono.feeList.length == 0">요금정보를 추가하기 위해 위 버튼을 눌러주세요.</span>
 
-      <table id="fee-box" v-show="feeList.length > 0">
-        <tr v-for="(item, index) in feeList" v-bind:key="index">
+      <table id="fee-box" v-show="cono.feeList.length > 0">
+        <tr v-for="(item, index) in cono.feeList" v-bind:key="index">
           <td style="width: 30%">
             <div>
               <input type="number" v-model="item.price" autocomplete="off" min="500" step="500" />
@@ -122,7 +122,7 @@
               v-for="payType in payTypes.slice(0, 2)"
               v-bind:key="payType.value"
             >
-              <input type="checkbox" :value="payType.value" v-model="checkedPayTypes" />
+              <input type="checkbox" :value="payType.value" v-model="cono.checkedPayTypes" />
               <label :for="payType.value">{{ payType.label }}<br /></label>
             </span>
           </td>
@@ -132,7 +132,7 @@
               v-for="payType in payTypes.slice(2)"
               v-bind:key="payType.value"
             >
-              <input type="checkbox" :value="payType.value" v-model="checkedPayTypes" />
+              <input type="checkbox" :value="payType.value" v-model="cono.checkedPayTypes" />
               <label :for="payType.value">{{ payType.label }}<br /></label>
             </span>
           </td>
@@ -142,7 +142,7 @@
       <!-- 반주기: 라디오 버튼 -->
       <p>반주기</p>
       <span class="radio-input" v-for="osType in osTypes" v-bind:key="osType.value">
-        <input type="radio" :value="osType.value" v-model="os" />
+        <input type="radio" :value="osType.value" v-model="cono.os" />
         <label :for="osType.value">{{ osType.label }}</label>
       </span>
     </div>
@@ -153,7 +153,7 @@
       <input
         type="number"
         class="text-input"
-        v-model="roomCount"
+        v-model="cono.roomCount"
         placeholder="방 개수를 입력해주세요."
         autocomplete="off"
       />
@@ -161,26 +161,29 @@
       <!-- 마이크: 체크박스 -->
       <p>마이크 종류</p>
       <span class="checkbox-input" v-for="micType in micTypes" v-bind:key="micType.value">
-        <input type="checkbox" :value="micType.value" v-model="checkedMicTypes" />
+        <input type="checkbox" :value="micType.value" v-model="cono.checkedMicTypes" />
         <label :for="micType.value">{{ micType.label }}</label>
       </span>
 
       <!-- 음향 조절: 라디오 버튼 -->
       <p>음향 조절</p>
       <span class="radio-input" v-for="soundType in soundTypes" v-bind:key="soundType.value">
-        <input type="radio" :value="soundType.value" v-model="canControlSound" />
+        <input type="radio" :value="soundType.value" v-model="cono.canControlSound" />
         <label :for="soundType.value">{{ soundType.label }}</label>
       </span>
 
       <!-- 100점 서비스: 라디오 버튼 -->
       <p>100점 보너스</p>
       <span class="radio-input" v-for="bonusType in bonusTypes" v-bind:key="bonusType.value">
-        <input type="radio" :value="bonusType.value" v-model="hasScoreBonus" />
+        <input type="radio" :value="bonusType.value" v-model="cono.hasScoreBonus" />
         <label :for="bonusType.value">{{ bonusType.label }}</label>
       </span>
     </div>
 
-    <div v-show="formPage == 4" class="register-form" id="form-4">입력 정보 요약 컴포넌트</div>
+    <div v-show="formPage == 4" class="register-form" id="form-4">
+      <DetailList v-bind:cono="cono" />
+      <p style="text-align: center">입력하신 정보로 신규 노래방을 등록합니다.</p>
+    </div>
 
     <!-- 최하단 버튼 그룹 -->
     <table id="form-button">
@@ -203,9 +206,11 @@
 </template>
 
 <script>
+import DetailList from './detail/DetailList.vue'
+
 export default {
   name: 'RegisterPage',
-  components: {},
+  components: { DetailList },
   data: () => {
     return {
       payTypes: [
@@ -281,35 +286,54 @@ export default {
         }
       ],
       formPage: 1,
-      conoName: '',
-      conoAddress: '',
-      operatingTime: '',
-      phoneNumber: '',
-      feeList: [],
-      checkedPayTypes: [],
-      os: '',
-      roomCount: Number,
-      checkedMicTypes: [],
-      canControlSound: Boolean,
-      hasScoreBonus: Boolean
+      cono: {
+        conoName: '',
+        conoAddress: '',
+        operatingTime: '',
+        phoneNumber: '',
+        feeList: [],
+        checkedPayTypes: [],
+        os: '',
+        roomCount: undefined,
+        checkedMicTypes: [],
+        canControlSound: undefined,
+        hasScoreBonus: undefined
+      }
     }
   },
   methods: {
     addFee() {
-      if (this.feeList.length < 10) {
-        this.feeList.push({})
+      if (this.cono.feeList.length < 10) {
+        this.cono.feeList.push({})
       }
     },
     removeFee(index) {
-      if (this.feeList.length > 0) {
-        this.feeList.splice(index, 1)
+      if (this.cono.feeList.length > 0) {
+        this.cono.feeList.splice(index, 1)
       }
     },
     next() {
       if (this.formPage == 1) {
-        if (this.conoName == '' || this.conoAddress == '' || this.operatingTime == '') {
+        if (
+          this.cono.conoName == '' ||
+          this.cono.conoAddress == '' ||
+          this.cono.operatingTime == ''
+        ) {
           alert('필수 정보를 모두 채워주세요.')
           return
+        }
+      } else if (this.formPage == 2) {
+        for (let i = this.cono.feeList.length - 1; i >= 0; i--) {
+          var fee = this.cono.feeList[i]
+          if (
+            fee.price == undefined ||
+            fee.price <= 0 ||
+            fee.value == undefined ||
+            fee.value <= 0 ||
+            fee.unit == undefined
+          ) {
+            this.cono.feeList.splice(i, 1)
+          }
         }
       }
       this.formPage += 1
