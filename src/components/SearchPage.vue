@@ -26,7 +26,7 @@
     </div>
 
     <div id="add-cono" v-show="isSearchSuccess">
-      <p>❕ 찾으시는 노래방이 없나요?</p>
+      <router-link to="/register"><p>❕ 찾으시는 노래방이 없나요?</p></router-link>
     </div>
   </div>
 </template>
@@ -76,21 +76,6 @@ export default {
         },
         {
           id: 7,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 8,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 9,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 10,
           name: '판타스틱 코인노래방 미금역점',
           address: '성남시 분당구'
         }
@@ -184,9 +169,11 @@ button {
 
 #add-cono {
   text-align: center;
-  color: gray;
-  font-size: small;
-  cursor: pointer;
-  text-decoration: underline;
+  a {
+    color: gray;
+    font-size: small;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 </style>
