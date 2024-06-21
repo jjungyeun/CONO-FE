@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p class="cono-name">{{ cono.name }}</p>
-    <p class="cono-address">{{ cono.address }}</p>
+    <router-link v-bind:to="`/cono/${cono.id}/detail`">
+      <p class="cono-name">{{ cono.name }}</p>
+      <p class="cono-address">{{ cono.address }}</p>
+    </router-link>
   </div>
   <hr v-show="!isLast" />
 </template>
@@ -17,6 +19,8 @@ export default {
 
 <style scoped>
 .cono-name {
+  text-decoration: none;
+  color: black;
   font-size: large;
 }
 
