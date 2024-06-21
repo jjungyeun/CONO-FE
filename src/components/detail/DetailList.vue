@@ -42,18 +42,34 @@ export default {
       soundTypes: { true: '가능', false: '불가능' },
       bonusTypes: { true: '제공', false: '미제공' },
       feeUnits: { SONG: '곡', MINUTE: '분', HOUR: '시간' },
-      conoName: '정보 없음',
-      conoAddress: '정보 없음',
-      operatingTime: '정보 없음',
-      phoneNumber: '정보 없음',
-      feeList: '정보 없음',
-      checkedPayTypes: '정보 없음',
-      os: '정보 없음',
-      roomCount: '정보 없음',
-      checkedMicTypes: '정보 없음',
-      canControlSound: '정보 없음',
-      hasScoreBonus: '정보 없음'
+      conoName: '',
+      conoAddress: '',
+      operatingTime: '',
+      phoneNumber: '',
+      feeList: '',
+      checkedPayTypes: '',
+      os: '',
+      roomCount: '',
+      checkedMicTypes: '',
+      canControlSound: '',
+      hasScoreBonus: ''
     }
+  },
+  created() {
+    var noneStr = '정보 없음'
+    this.conoName = this.cono.conoName != '' ? this.cono.conoName : noneStr
+    this.conoAddress = this.cono.conoAddress != '' ? this.cono.conoAddress : noneStr
+    this.operatingTime = this.cono.operatingTime != '' ? this.cono.operatingTime : noneStr
+    this.phoneNumber = this.cono.phoneNumber != '' ? this.cono.phoneNumber : noneStr
+    this.feeList = this.cono.feeList != '' ? this.cono.feeList : noneStr
+    this.checkedPayTypes = this.cono.checkedPayTypes != '' ? this.cono.checkedPayTypes : noneStr
+    this.os = this.cono.os != '' ? this.cono.os : noneStr
+    this.roomCount = this.cono.roomCount != undefined ? this.cono.roomCount + '개' : noneStr
+    this.checkedMicTypes = this.cono.checkedMicTypes != '' ? this.cono.checkedMicTypes : noneStr
+    this.canControlSound =
+      this.cono.canControlSound != undefined ? this.soundTypes[this.cono.canControlSound] : noneStr
+    this.hasScoreBonus =
+      this.cono.hasScoreBonus != undefined ? this.bonusTypes[this.cono.hasScoreBonus] : noneStr
   },
   watch: {
     'cono.conoName': function () {
@@ -88,7 +104,7 @@ export default {
       for (let i = 0; i < this.cono.checkedPayTypes.length; i++) {
         str += this.payTypes[this.cono.checkedPayTypes[i]]
         if (i != this.cono.checkedPayTypes.length - 1) {
-          str += ',\n'
+          str += ', '
         }
       }
       this.checkedPayTypes = str
@@ -104,7 +120,7 @@ export default {
       for (let i = 0; i < this.cono.checkedMicTypes.length; i++) {
         str += this.micTypes[this.cono.checkedMicTypes[i]]
         if (i != this.cono.checkedMicTypes.length - 1) {
-          str += ',\n'
+          str += ', '
         }
       }
       this.checkedMicTypes = str
