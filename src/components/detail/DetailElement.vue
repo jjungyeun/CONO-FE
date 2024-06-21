@@ -1,9 +1,9 @@
 <template>
   <tr>
-    <td style="width: 30%">
+    <td style="width: 30%; vertical-align: top">
       <span id="detail-title">{{ title }}</span>
     </td>
-    <td style="width: 70%">
+    <td style="width: 70%; white-space: pre-line">
       <span id="detail-content">{{ content }}</span>
     </td>
   </tr>
