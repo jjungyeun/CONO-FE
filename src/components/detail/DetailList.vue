@@ -57,19 +57,21 @@ export default {
   },
   created() {
     var noneStr = '정보 없음'
-    this.conoName = this.cono.conoName != '' ? this.cono.conoName : noneStr
-    this.conoAddress = this.cono.conoAddress != '' ? this.cono.conoAddress : noneStr
-    this.operatingTime = this.cono.operatingTime != '' ? this.cono.operatingTime : noneStr
-    this.phoneNumber = this.cono.phoneNumber != '' ? this.cono.phoneNumber : noneStr
-    this.feeList = this.cono.feeList != '' ? this.cono.feeList : noneStr
-    this.checkedPayTypes = this.cono.checkedPayTypes != '' ? this.cono.checkedPayTypes : noneStr
-    this.os = this.cono.os != '' ? this.cono.os : noneStr
-    this.roomCount = this.cono.roomCount != undefined ? this.cono.roomCount + '개' : noneStr
-    this.checkedMicTypes = this.cono.checkedMicTypes != '' ? this.cono.checkedMicTypes : noneStr
+    this.conoName = this.cono.name != undefined ? this.cono.name : noneStr
+    this.conoAddress = this.cono.address != undefined ? this.cono.address : noneStr
+    this.operatingTime = this.cono.operating_time != undefined ? this.cono.operating_time : noneStr
+    this.phoneNumber = this.cono.phone_number != undefined ? this.cono.phone_number : noneStr
+    this.feeList = this.cono.fee != undefined ? this.cono.fee : noneStr
+    this.checkedPayTypes = this.cono.pay_types != undefined ? this.cono.pay_types : noneStr
+    this.os = this.cono.os != undefined ? this.cono.os : noneStr
+    this.roomCount = this.cono.room_count != undefined ? this.cono.room_count + '개' : noneStr
+    this.checkedMicTypes = this.cono.mic_types != undefined ? this.cono.mic_types : noneStr
     this.canControlSound =
-      this.cono.canControlSound != undefined ? this.soundTypes[this.cono.canControlSound] : noneStr
+      this.cono.can_control_sound != undefined
+        ? this.soundTypes[this.cono.can_control_sound]
+        : noneStr
     this.hasScoreBonus =
-      this.cono.hasScoreBonus != undefined ? this.bonusTypes[this.cono.hasScoreBonus] : noneStr
+      this.cono.has_score_bonus != undefined ? this.bonusTypes[this.cono.has_score_bonus] : noneStr
   },
   watch: {
     'cono.conoName': function () {
