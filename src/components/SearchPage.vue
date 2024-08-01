@@ -3,7 +3,12 @@
     <table>
       <tr>
         <td style="width: 85%">
-          <input v-model="searchQuery" placeholder="검색어를 입력해주세요." autocomplete="off" />
+          <input
+            v-model="query"
+            placeholder="검색어를 입력해주세요."
+            autocomplete="off"
+            @keyup.enter="search()"
+          />
         </td>
         <td style="width: 15%">
           <button @click="search()">검색</button>
@@ -11,12 +16,16 @@
       </tr>
     </table>
 
+    <div id="fail-to-search" v-show="isSearchFailed">
+      <p>문제가 발생했습니다. 잠시 후에 다시 시도해 주세요.</p>
+    </div>
+
     <div id="no-search-result" v-show="isSearchSuccess && conoList.length == 0">
-      <p>"{{ searchQuery }}"에 대한 검색 결과가 없습니다.</p>
+      <p>"{{ searchedQuery }}"에 대한 검색 결과가 없습니다.</p>
     </div>
 
     <div id="search-result" v-show="isSearchSuccess && conoList.length > 0">
-      <p>"{{ searchQuery }}"에 대한 검색 결과입니다.</p>
+      <p>"{{ searchedQuery }}"에 대한 검색 결과입니다.</p>
 
       <ul>
         <li v-for="(cono, idx) in conoList" v-bind:key="cono.id">
@@ -41,54 +50,41 @@ export default {
   },
   data: () => {
     return {
-      searchQuery: '',
+      query: '',
+      searchedQuery: '',
       isSearchSuccess: false,
-      conoList: [
-        {
-          id: 3,
-          name: '슈퍼스타 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 4,
-          name: '슈퍼스타 코인노래방 미금역 2호점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 5,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 1,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 2,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 6,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        },
-        {
-          id: 7,
-          name: '판타스틱 코인노래방 미금역점',
-          address: '성남시 분당구'
-        }
-      ]
+      isSearchFailed: false,
+      conoList: []
     }
   },
   methods: {
     search() {
-      if (this.searchQuery == '') {
+      if (this.query == '') {
         alert('검색어를 입력해주세요.')
       } else {
-        this.isSearchSuccess = true
+        this.searchFromServer()
       }
+    },
+    async searchFromServer() {
+      this.axios
+        .get('/be-api/conos', {
+          params: {
+            q: this.query
+          }
+        })
+        .then((res) => {
+          this.conoList = res.data.content
+          this.isSearchFailed = false
+          this.isSearchSuccess = true
+        })
+        .catch((res) => {
+          console.error(res)
+          this.isSearchSuccess = false
+          this.isSearchFailed = true
+        })
+        .finally(() => {
+          this.searchedQuery = this.query
+        })
     }
   }
 }
@@ -160,7 +156,8 @@ button {
   }
 }
 
-#no-search-result {
+#no-search-result,
+#fail-to-search {
   text-align: center;
   font-size: large;
   color: gray;

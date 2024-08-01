@@ -16,11 +16,11 @@
         </tr>
       </table>
     </div>
-    <div id="detail-box">
+    <div id="detail-box" v-if="isSuccess">
       <DetailList v-bind:cono="cono" />
       <span id="edit-cono">
         <p>
-          {{ cono.updatedDateTime }} 업데이트됨
+          {{ cono.updated_date }} 업데이트됨
           <router-link to="/edit">* 정보 수정 요청하기</router-link>
         </p>
       </span>
@@ -36,20 +36,24 @@ export default {
   components: { DetailList },
   data: () => {
     return {
-      cono: {
-        conoName: 'XXX코인노래방 미금역점',
-        conoAddress: '경기도 성남시 어쩌구로 25 뭐시기저시기 엄청 긴 주소',
-        operatingTime: '매일 13:00~24:00',
-        phoneNumber: '010-1234-5678',
-        feeList: '1000원 2곡\n5000원 12곡',
-        checkedPayTypes: '현금, 카드',
-        os: 'TJ미디어',
-        roomCount: 5,
-        checkedMicTypes: '',
-        canControlSound: undefined,
-        hasScoreBonus: true,
-        updatedDateTime: new Date().toLocaleDateString()
-      }
+      cono: {},
+      isSuccess: false
+    }
+  },
+  created() {
+    this.getCono()
+  },
+  methods: {
+    async getCono() {
+      this.axios
+        .get('/be-api/conos/' + this.$route.params.conoId)
+        .then((res) => {
+          this.cono = res.data
+          this.isSuccess = true
+        })
+        .catch((res) => {
+          console.error(res)
+        })
     }
   }
 }

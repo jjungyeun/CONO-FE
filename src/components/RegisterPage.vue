@@ -341,7 +341,37 @@ export default {
     prev() {
       this.formPage -= 1
     },
-    register() {}
+    async register() {
+      // POST body 생성
+      var body = {}
+      body.name = this.cono.conoName
+      body.address = this.cono.conoAddress
+      // TODO - 추후 지도 API 연동 필요
+      body.location = {
+        lan: 80.1111,
+        lon: 80.1111
+      }
+      if (this.cono.operatingTime != '') body.operating_time = this.cono.operatingTime
+      if (this.cono.phoneNumber != '') body.phone_number = this.cono.phoneNumber
+      if (this.cono.feeList.length > 0) body.fee = this.cono.feeList
+      if (this.cono.checkedPayTypes > 0) body.pay_types = this.cono.checkedPayTypes
+      if (this.cono.os != '') body.os = this.cono.os
+      if (this.cono.roomCount != undefined) body.room_count = this.cono.roomCount
+      if (this.cono.hasScoreBonus != undefined) body.has_score_bonus = this.cono.hasScoreBonus
+      if (this.cono.canControlSound != undefined) body.can_control_sound = this.cono.canControlSound
+      if (this.cono.checkedMicTypes > 0) body.mic_types = this.cono.checkedMicTypes
+
+      this.axios
+        .post('/be-api/conos', body)
+        .then((res) => {
+          alert('노래방 등록이 완료되었습니다.')
+          this.$router.push('/cono/' + res.headers.location + '/detail')
+        })
+        .catch((res) => {
+          console.error(res)
+          alert('문제가 발생했습니다. 잠시 후에 다시 시도해주세요.')
+        })
+    }
   }
 }
 </script>
