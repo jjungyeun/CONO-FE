@@ -3,7 +3,12 @@
     <table>
       <tr>
         <td style="width: 85%">
-          <input v-model="query" placeholder="검색어를 입력해주세요." autocomplete="off" />
+          <input
+            v-model="query"
+            placeholder="검색어를 입력해주세요."
+            autocomplete="off"
+            @keyup.enter="search()"
+          />
         </td>
         <td style="width: 15%">
           <button @click="search()">검색</button>
