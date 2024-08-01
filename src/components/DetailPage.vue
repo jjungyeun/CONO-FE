@@ -20,7 +20,7 @@
       <DetailList v-bind:cono="cono" />
       <span id="edit-cono">
         <p>
-          {{ cono.updated_datetime }} 업데이트됨
+          {{ cono.updated_date }} 업데이트됨
           <router-link to="/edit">* 정보 수정 요청하기</router-link>
         </p>
       </span>
